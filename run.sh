@@ -88,7 +88,6 @@ trap "ossec_shutdown; exit" SIGINT SIGTERM
 chmod -R g+rw ${DATA_PATH}
 
 
-
 if [ $AUTO_ENROLLMENT_ENABLED == true ]
 then
   echo "Starting ossec-authd..."
@@ -97,10 +96,6 @@ then
 fi
 sleep 15 # give ossec a reasonable amount of time to start before checking status
 LAST_OK_DATE=`date +%s`
-
-touch ${DATA_PATH}/process_list
-chgrp ossec ${DATA_PATH}/process_list
-chmod g+rw ${DATA_PATH}/process_list
 
 
 /etc/init.d/logstash start
