@@ -98,15 +98,21 @@ fi
 sleep 15 # give ossec a reasonable amount of time to start before checking status
 LAST_OK_DATE=`date +%s`
 
-
-
-cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
-curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
-service ossec restart
+touch ${DATA_PATH}/process_list
+chgrp ossec ${DATA_PATH}/process_list
+chmod g+rw ${DATA_PATH}/process_list
 
 
 /etc/init.d/logstash start
 /etc/init.d/elasticsearch start
 /etc/init.d/kibana4 start
+
+cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
+curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
+service ossec restart
+
+echo "Waiting 20 secods until logstash and elasticsearch start to run"
+sleep 20
+
 
 tail -f /var/ossec/logs/ossec.log
