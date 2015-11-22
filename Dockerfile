@@ -17,7 +17,7 @@ RUN wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo a
     echo "deb http://packages.elastic.co/elasticsearch/1.7/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-1.7.list
 
 
-RUN apt-get update && apt-get install -y vim gcc make libssl-dev logstash elasticsearch
+RUN apt-get update && apt-get install -y vim gcc make libssl-dev unzip logstash elasticsearch
 
 RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 
@@ -26,9 +26,11 @@ RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 # process. Then run the install script, which will turn on just about 
 # everything except e-mail notifications
 
-
-
-ADD ossec-hids /root/ossec_tmp/ossec-wazuh
+## Para cuando se publique
+RUN wget https://github.com/wazuh/ossec-wazuh/archive/v1.0.zip &&\
+    unzip v1.0.zip &&\
+    mv ossec-wazuh-1.0 /root/ossec_tmp/ossec-wazuh
+#ADD ossec-wazuh /root/ossec_tmp/ossec-wazuh
 COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
 
 RUN /root/ossec_tmp/ossec-wazuh/install.sh

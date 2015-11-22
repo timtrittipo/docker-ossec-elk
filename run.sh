@@ -33,6 +33,15 @@ AUTO_ENROLLMENT_ENABLED=${AUTO_ENROLLMENT_ENABLED:-true}
 if [ $FIRST_TIME_INSTALLATION == true ]
 then
 
+/etc/init.d/logstash start
+/etc/init.d/elasticsearch start
+/etc/init.d/kibana4 start
+
+echo "Waiting 20 secods until logstash and elasticsearch start to run"
+sleep 20
+
+cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
+curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
 
   if [ $AUTO_ENROLLMENT_ENABLED == true ]
   then
@@ -102,12 +111,7 @@ LAST_OK_DATE=`date +%s`
 /etc/init.d/elasticsearch start
 /etc/init.d/kibana4 start
 
-cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
-curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
 service ossec restart
-
-echo "Waiting 20 secods until logstash and elasticsearch start to run"
-sleep 20
 
 
 tail -f /var/ossec/logs/ossec.log
