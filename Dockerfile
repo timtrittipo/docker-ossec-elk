@@ -27,9 +27,9 @@ RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 # everything except e-mail notifications
 
 ## Para cuando se publique
-RUN wget https://github.com/wazuh/ossec-wazuh/archive/v1.0.zip &&\
-    unzip v1.0.zip &&\
-    mv ossec-wazuh-1.0 /root/ossec_tmp/ossec-wazuh
+RUN wget https://github.com/wazuh/ossec-wazuh/archive/master.zip &&\
+    unzip master.zip &&\
+    mv ossec-wazuh-master /root/ossec_tmp/ossec-wazuh
 #ADD ossec-wazuh /root/ossec_tmp/ossec-wazuh
 COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
 
