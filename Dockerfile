@@ -68,7 +68,9 @@ RUN cd /root/ossec_tmp &&\
      chmod +x /etc/init.d/kibana4 &&\
      cp ossec-wazuh/extensions/kibana/index.js /opt/kibana/src/public &&\
      mkdir /opt/kibana/src/public/components/compliance &&\
-     cp ossec-wazuh/extensions/kibana/compliance.json /opt/kibana/src/public/components/compliance/
+     cp ossec-wazuh/extensions/kibana/compliance.json /opt/kibana/src/public/components/compliance/ &&\
+     cp ossec-wazuh/extensions/kibana/main.css /opt/kibana/src/public/styles &&\
+     cp ossec-wazuh/extensions/kibana/no_border.png /opt/kibana/src/public/images
 
 
 ADD data_dirs.env /data_dirs.env
