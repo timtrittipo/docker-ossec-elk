@@ -35,8 +35,6 @@ COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
 
 RUN /root/ossec_tmp/ossec-wazuh/install.sh
 
-ADD ossec.conf /var/ossec/etc/
-
 RUN apt-get remove --purge -y gcc make && apt-get clean
 
 # Set persistent volumes for the /etc and /log folders so that the logs
