@@ -12,10 +12,9 @@ RUN add-apt-repository -y ppa:webupd8team/java &&\
 
 
 RUN wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add - &&\
-    echo "deb http://packages.elasticsearch.org/logstash/1.5/debian stable main" | sudo tee -a /etc/apt/sources.list &&\
+     echo "deb http://packages.elasticsearch.org/logstash/2.1/debian stable main" | sudo tee -a /etc/apt/sources.list &&\
     wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add - &&\
-    echo "deb http://packages.elastic.co/elasticsearch/1.7/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-1.7.list
-
+    echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
 
 RUN apt-get update && apt-get install -y vim gcc make libssl-dev unzip logstash elasticsearch
 
@@ -41,6 +40,12 @@ RUN apt-get remove --purge -y gcc make && apt-get clean
 # and agent keys survive a start/stop and expose ports for the 
 # server/client ommunication (1514) and the syslog transport (514)
 
+ADD default_agent /var/ossec/default_agent
+RUN service ossec restart &&\
+  /var/ossec/bin/manage_agents -f /default_agent &&\
+  rm /var/ossec/default_agent &&\
+  service ossec stop &&\
+  echo -n "" /var/ossec/logs/ossec.log
 
 
 ##LOGSTASH configuration
@@ -58,17 +63,12 @@ ADD elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 #KIBANA4 configuration
 
 RUN cd /root/ossec_tmp &&\
-     wget https://download.elastic.co/kibana/kibana/kibana-4.1.2-linux-x64.tar.gz &&\
+     wget https://download.elastic.co/kibana/kibana/kibana-4.3.1-linux-x64.tar.gz &&\
      tar xvf kibana-*.tar.gz &&\
      mkdir -p /opt/kibana &&\
      cp -R kibana-4*/* /opt/kibana/ &&\
      cp /root/ossec_tmp/ossec-wazuh/extensions/kibana/kibana4 /etc/init.d/ &&\
-     chmod +x /etc/init.d/kibana4 &&\
-     cp ossec-wazuh/extensions/kibana/index.js /opt/kibana/src/public &&\
-     mkdir /opt/kibana/src/public/components/compliance &&\
-     cp ossec-wazuh/extensions/kibana/compliance.json /opt/kibana/src/public/components/compliance/ &&\
-     cp ossec-wazuh/extensions/kibana/main.css /opt/kibana/src/public/styles &&\
-     cp ossec-wazuh/extensions/kibana/no_border.png /opt/kibana/src/public/images
+     chmod +x /etc/init.d/kibana4
 
 
 ADD data_dirs.env /data_dirs.env
