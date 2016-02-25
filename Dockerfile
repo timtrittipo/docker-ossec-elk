@@ -4,7 +4,7 @@ MAINTAINER Jose Luis Ruiz <jose@wazuh.com>
 # Update repositories, install git, gcc, wget, make and java8 and 
 # clone down the latest OSSEC build from the official Github repo.
 
-RUN apt-get update && apt-get install -y python-software-properties debconf-utils daemontools wget
+RUN apt-get update && apt-get install -y python-software-properties nodejs debconf-utils daemontools wget
 RUN add-apt-repository -y ppa:webupd8team/java &&\
     apt-get update &&\
     echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections &&\
@@ -28,11 +28,16 @@ RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 ## Para cuando se publique
 RUN wget https://github.com/wazuh/ossec-wazuh/archive/master.zip &&\
     unzip master.zip &&\
-    mv ossec-wazuh-master /root/ossec_tmp/ossec-wazuh
+    mv ossec-wazuh-master /root/ossec_tmp/ossec-wazuh &&\ 
+    rm master.zip
 #ADD ossec-wazuh /root/ossec_tmp/ossec-wazuh
 COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
 
 RUN /root/ossec_tmp/ossec-wazuh/install.sh
+
+RUN wget https://github.com/wazuh/wazuh-API/archive/master.zip &&\
+    unzip master.zip &&\
+    mkdir -p /var/ossec/api && cp -r wazuh-API-master/* /var/ossec/api
 
 RUN apt-get remove --purge -y gcc make && apt-get clean
 
@@ -84,7 +89,7 @@ RUN chmod 755 /tmp/run.sh
 
 VOLUME ["/var/ossec/data"]
 
-EXPOSE 1514/udp 1515/tcp 5601/tcp 515/udp
+EXPOSE 55000/tcp 1514/udp 1515/tcp 5601/tcp 515/udp
 
 # Run supervisord so that the container will stay alive
 

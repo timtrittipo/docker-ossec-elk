@@ -107,6 +107,8 @@ sleep 20
 cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
 curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
 
+/usr/bin/nodejs /var/ossec/api/app.js > /var/ossec/api/api.log &
+
 service ossec restart
 
 
