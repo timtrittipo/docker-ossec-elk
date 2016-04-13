@@ -17,4 +17,26 @@ This Docker container is based on “xetus-oss” dockerfiles, which can be foun
 
 * [Wazuh website](http://wazuh.com)
 * [OSSEC project website](http://ossec.github.io)
- 
+
+## OSSEC Wazuh v1.1
+
+We have released OSSEC Wazuh v1.1, in this new release we have improved the Agents management, we added mechanisms to prevent agent IP duplication, re-usage of old ID's, backup for agent information before deleting, force adding or alerting when duplicate IP conflicts.
+
+This release will also include:
+
+* Expanded RESTful API integration facilitating massive deployments using Wazuh Powershell or Python scripts
+* Added improvements and fixes from others OSSEC forks
+* Agents date created file
+* Upgraded Ruleset v1.07
+
+
+## Wazuh RESTful API v1.2 
+
+This new release has been an effort to have a much more solid API. We would like to highlight especially the following new capabilities:
+
+* Run the API as service.
+* API Versioning by URL or HTTP header.
+* On adding a new agent, the IP will be automatically detected.
+* IP detection works behind a proxy server.
+
+
