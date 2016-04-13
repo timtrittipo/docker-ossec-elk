@@ -16,7 +16,7 @@ RUN wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo a
     wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add - &&\
     echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
 
-RUN apt-get update && apt-get install -y vim gcc make libssl-dev unzip logstash elasticsearch
+RUN apt-get update && apt-get install -y vim npm gcc make libssl-dev unzip logstash elasticsearch
 
 RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 
@@ -37,7 +37,8 @@ RUN /root/ossec_tmp/ossec-wazuh/install.sh
 
 RUN wget https://github.com/wazuh/wazuh-API/archive/master.zip &&\
     unzip master.zip &&\
-    mkdir -p /var/ossec/api && cp -r wazuh-API-master/* /var/ossec/api
+    mkdir -p /var/ossec/api && cp -r wazuh-API-master/* /var/ossec/api &&\
+    cd /var/ossec/api && npm install
 
 RUN apt-get remove --purge -y gcc make && apt-get clean
 
