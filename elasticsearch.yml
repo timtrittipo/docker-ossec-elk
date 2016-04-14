@@ -48,6 +48,8 @@ node.name: ossec_node1
 # Elasticsearch performs poorly when the system is swapping the memory.
 #
 # ---------------------------------- Network -----------------------------------
+index.number_of_shards: 1
+index.number_of_replicas: 0
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #

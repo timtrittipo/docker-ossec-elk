@@ -107,7 +107,11 @@ sleep 20
 cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
 curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
 
+## Update rules and decoders with Wazuh Ruleset
+cd /var/ossec/update/ruleset && python ossec_ruleset.py 
+
 /usr/bin/nodejs /var/ossec/api/app.js > /var/ossec/api/api.log &
+
 
 service ossec restart
 
