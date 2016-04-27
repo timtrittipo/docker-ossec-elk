@@ -25,7 +25,7 @@ RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 # process. Then run the install script, which will turn on just about 
 # everything except e-mail notifications
 
-## Para cuando se publique
+
 RUN wget https://github.com/wazuh/ossec-wazuh/archive/master.zip &&\
     unzip master.zip &&\
     mv ossec-wazuh-master /root/ossec_tmp/ossec-wazuh &&\ 
