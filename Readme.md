@@ -17,6 +17,40 @@ This Docker container is based on “xetus-oss” dockerfiles, which can be foun
 
 * [Wazuh website](http://wazuh.com)
 * [OSSEC project website](http://ossec.github.io)
+## OSSEC Wazuh v1.1.1
+
+Dear Wazuh community,
+
+We have released OSSEC Wazuh v1.1.1, in this new release we fixed some issues regarding to logcollector, maild and remoted processes, also we are including last version of Wazuh Ruleset.
+Some of the more important changes in this release are mentioned in the change log below.
+
+### Added
+
+- agent_control: maximum number of agents can now be extracted using option "-m".
+- maild: timeout limitation, preventing it from hang in some cases.
+- Updated decoders, ruleset and rootchecks from Wazuh Ruleset v1.0.8.
+- Updated changes from ossec-hids repository.
+
+### Changed
+
+- Avoid authd to rename agent if overplaced.
+- Changed some log messages.
+- Reordered directories for agent backups.
+- Don't exit when client.keys is empty by default.
+- Improved client.keys reloading capabilities.
+
+### Fixed
+
+- Fixed JSON output at rootcheck_control.
+- Fixed agent compilation on OS X.
+- Fixed memory issue on removing timestamps.
+- Fixed segmentation fault at reported.
+- Fixed segmentation fault at logcollector.
+
+### Removed
+
+- Removed old rootcheck options.
+
 
 ## OSSEC Wazuh v1.1
 
