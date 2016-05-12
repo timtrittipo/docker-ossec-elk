@@ -17,6 +17,7 @@ This Docker container is based on “xetus-oss” dockerfiles, which can be foun
 
 * [Wazuh website](http://wazuh.com)
 * [OSSEC project website](http://ossec.github.io)
+
 ## OSSEC Wazuh v1.1.1
 
 Dear Wazuh community,
