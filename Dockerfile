@@ -35,9 +35,9 @@ COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
 
 RUN /root/ossec_tmp/ossec-wazuh/install.sh
 
-RUN wget https://github.com/wazuh/wazuh-API/archive/master.zip &&\
-    unzip master.zip &&\
-    mkdir -p /var/ossec/api && cp -r wazuh-API-master/* /var/ossec/api &&\
+RUN wget https://github.com/wazuh/wazuh-API/archive/v1.2.tar.gz &&\
+    tar xvfz v1.2.tar.gz &&\
+    mkdir -p /var/ossec/api && cp -r wazuh-API-1.2/* /var/ossec/api &&\
     cd /var/ossec/api && npm install
 
 RUN apt-get remove --purge -y gcc make && apt-get clean
