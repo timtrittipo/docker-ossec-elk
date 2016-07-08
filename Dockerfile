@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM phusion/baseimage:0.9.15
 MAINTAINER Jose Luis Ruiz <jose@wazuh.com>
 
 # Update repositories, install git, gcc, wget, make and java8 and
