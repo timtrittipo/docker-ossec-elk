@@ -14,6 +14,7 @@ RUN add-apt-repository -y ppa:webupd8team/java &&\
 RUN wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add - &&\
      echo "deb https://packages.elasticsearch.org/logstash/2.1/debian stable main" | sudo tee -a /etc/apt/sources.list &&\
     wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add - &&\
+    echo "deb http://packages.elastic.co/kibana/4.5/debian stable main" | sudo tee -a /etc/apt/sources.list &&\
     echo "deb https://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
 
 RUN apt-get update && apt-get install -y vim npm gcc make libssl-dev unzip logstash elasticsearch
@@ -66,15 +67,11 @@ RUN cp /root/ossec_tmp/ossec-wazuh/extensions/logstash/01-ossec-singlehost.conf 
 
 ADD elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 
-#KIBANA4 configuration
+#KIBANA4.5 configuration
 
-RUN cd /root/ossec_tmp &&\
-     wget https://download.elastic.co/kibana/kibana/kibana-4.3.1-linux-x64.tar.gz &&\
-     tar xvf kibana-*.tar.gz &&\
-     mkdir -p /opt/kibana &&\
-     cp -R kibana-4*/* /opt/kibana/ &&\
-     cp /root/ossec_tmp/ossec-wazuh/extensions/kibana/kibana4 /etc/init.d/ &&\
-     chmod +x /etc/init.d/kibana4
+RUN apt-get -y install kibana python-requests
+
+ADD wazuh_kibana_installer.py /tmp
 
 
 ADD data_dirs.env /data_dirs.env

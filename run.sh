@@ -99,16 +99,16 @@ LAST_OK_DATE=`date +%s`
 
 /etc/init.d/logstash start
 /etc/init.d/elasticsearch start
-/etc/init.d/kibana4 start
+/etc/init.d/kibana restart
 
 echo "Waiting 20 secods until logstash and elasticsearch start to run"
 sleep 20
 
-cd /root/ossec_tmp/ossec-wazuh/extensions/elasticsearch/
-curl -XPUT "http://localhost:9200/_template/ossec/" -d "@elastic-ossec-template.json"
+cd /tmp
+python wazuh_kibana_installer.py
 
 ## Update rules and decoders with Wazuh Ruleset
-cd /var/ossec/update/ruleset && python ossec_ruleset.py 
+cd /var/ossec/update/ruleset && python ossec_ruleset.py
 
 /usr/bin/nodejs /var/ossec/api/app.js > /var/ossec/api/api.log &
 
