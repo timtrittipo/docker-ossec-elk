@@ -101,8 +101,8 @@ LAST_OK_DATE=`date +%s`
 /etc/init.d/elasticsearch start
 /etc/init.d/kibana restart
 
-echo "Waiting 20 secods until logstash and elasticsearch start to run"
-sleep 20
+echo "Waiting 60 secods until logstash and elasticsearch start to run"
+sleep 60
 
 cd /tmp
 python wazuh_kibana_installer.py
