@@ -87,7 +87,7 @@ RUN chmod 755 /tmp/run.sh
 
 VOLUME ["/var/ossec/data"]
 
-EXPOSE 55000/tcp 1514/udp 1515/tcp 5601/tcp 515/udp
+EXPOSE 55000/tcp 1514/udp 1515/tcp 5601/tcp 514/udp
 
 # Run supervisord so that the container will stay alive
 
