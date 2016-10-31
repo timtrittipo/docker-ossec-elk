@@ -1,0 +1,18 @@
+version: '2'
+services:
+  ossec-elk-server:
+    image: wazuh/ossec-elk
+    env_file: ./ossec.env
+    #env_file:
+    #  - ./common.env
+    #  - ./apps/web.env
+    #  - /opt/secrets.env
+    volumes:
+      - ${DOCKER_MNT_BASE}/elasticsearch:/var/lib/elasticsearch
+      - ${DOCKER_MNT_BASE}/ossec_mnt:/var/ossec/data
+    ports:
+      - 55000:55000
+      - 1514:1514/udp
+      - 1515:1515
+      - 514:514/udp
+      - 5601:5601

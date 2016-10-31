@@ -1,0 +1,10 @@
+# .gitignore
+*-template
+etc*
+index.html*
+logs
+logs-template
+queue
+queue-template
+stats
+stats-template
