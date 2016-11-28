@@ -36,12 +36,12 @@ COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
 
 RUN /root/ossec_tmp/ossec-wazuh/install.sh
 
-RUN wget https://github.com/wazuh/wazuh-API/archive/v1.2.tar.gz &&\
+RUN wget https://github.com/wazuh/wazuh-api/archive/v1.2.tar.gz &&\
     tar xvfz v1.2.tar.gz &&\
     mkdir -p /var/ossec/api && cp -r wazuh-api-1.2/* /var/ossec/api &&\
     cd /var/ossec/api && npm install
 
-RUN rm -rf wazuh-API-1.2 && rm v1.2.tar.gz
+RUN rm -rf wazuh-api-1.2 && rm v1.2.tar.gz
 RUN apt-get remove --purge -y gcc make && apt-get clean
 
 # Set persistent volumes for the /etc and /log folders so that the logs
