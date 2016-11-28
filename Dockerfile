@@ -29,7 +29,7 @@ RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 
 RUN wget https://github.com/wazuh/ossec-wazuh/archive/v1.1.1.tar.gz &&\
     tar xvfz v1.1.1.tar.gz &&\
-    mv ossec-wazuh-1.1.1 /root/ossec_tmp/ossec-wazuh &&\
+    mv wazuh-1.1.1 /root/ossec_tmp/ossec-wazuh &&\
     rm v1.1.1.tar.gz
 #ADD ossec-wazuh /root/ossec_tmp/ossec-wazuh
 COPY preloaded-vars.conf /root/ossec_tmp/ossec-wazuh/etc/preloaded-vars.conf
@@ -38,7 +38,7 @@ RUN /root/ossec_tmp/ossec-wazuh/install.sh
 
 RUN wget https://github.com/wazuh/wazuh-API/archive/v1.2.tar.gz &&\
     tar xvfz v1.2.tar.gz &&\
-    mkdir -p /var/ossec/api && cp -r wazuh-API-1.2/* /var/ossec/api &&\
+    mkdir -p /var/ossec/api && cp -r wazuh-api-1.2/* /var/ossec/api &&\
     cd /var/ossec/api && npm install
 
 RUN rm -rf wazuh-API-1.2 && rm v1.2.tar.gz
