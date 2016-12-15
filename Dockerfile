@@ -3,8 +3,9 @@ MAINTAINER Jose Luis Ruiz <jose@wazuh.com>
 
 # Update repositories, install git, gcc, wget, make and java8 and
 # clone down the latest OSSEC build from the official Github repo.
-
-RUN apt-get update && apt-get install -y python-software-properties nodejs debconf-utils daemontools wget
+RUN apt-get update && apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN apt-get install -y nodejs
+RUN apt-get update && apt-get install -y python-software-properties debconf-utils daemontools wget
 RUN add-apt-repository -y ppa:webupd8team/java &&\
     apt-get update &&\
     echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections &&\
@@ -17,7 +18,7 @@ RUN wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo a
     echo "deb http://packages.elastic.co/kibana/4.5/debian stable main" | sudo tee -a /etc/apt/sources.list &&\
     echo "deb https://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
 
-RUN apt-get update && apt-get install -y vim expect npm gcc make libssl-dev unzip logstash elasticsearch
+RUN apt-get update && apt-get install -y vim expect gcc make libssl-dev unzip logstash elasticsearch
 
 RUN cd root && mkdir ossec_tmp && cd ossec_tmp
 
