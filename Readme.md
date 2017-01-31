@@ -7,7 +7,7 @@ This Docker container source files can be found in our [ossec-wazuh Github repos
 * [Full documentation](http://documentation.wazuh.com)
 * [OSSEC integration with ELK Stack](http://documentation.wazuh.com/en/latest/ossec_elk.html)
 * [Docker container documentation](http://documentation.wazuh.com/en/latest/ossec_docker.html#ossec-elk-container)
-* [Docker Hub](https://hub.docker.com/r/wazuh/docker-ossec-elk/)
+* [Docker Hub](https://hub.docker.com/r/wazuh/ossec-elk/)
 
 ## Credits and thank you
 
